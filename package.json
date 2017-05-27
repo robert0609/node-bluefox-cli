@@ -7,10 +7,10 @@
     "bluefox": "./bin/start.js"
   },
   "scripts": {
-    "clean": "./node_modules/.bin/gulp clean",
-    "build": "./node_modules/.bin/gulp",
-    "dev": "./node_modules/.bin/gulp debug",
-    "lint": "./node_modules/.bin/gulp eslint"
+    "clean": "gulp clean",
+    "build": "gulp",
+    "dev": "gulp debug",
+    "lint": "gulp eslint"
   },
   "author": "yangxu",
   "license": "ISC",

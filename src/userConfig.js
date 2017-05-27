@@ -29,11 +29,44 @@ function createQuestionPromise(question) {
 }
 
 function* conversation() {
-    let name = yield createQuestionPromise('name?');
-    let version = yield createQuestionPromise('version?');
-    let description = yield createQuestionPromise('description?');
-    let auther = yield createQuestionPromise('auther?');
-    return { name, version, description, auther };
+    let kind = '';
+    do {
+        kind = yield createQuestionPromise('project type("console"、"library"or"web", default: console)?');
+        if (kind.isEmpty()) {
+            kind = 'console';
+        }
+    }
+    while (!validateKind(kind));
+    let name = yield createQuestionPromise('package name?');
+    let version = '';
+    do {
+        version = yield createQuestionPromise('package version(default: 1.0.0)?');
+        if (version.isEmpty()) {
+            version = '1.0.0';
+        }
+    }
+    while (!validateVersion(version));
+    let description = yield createQuestionPromise('package description?');
+    let auther = yield createQuestionPromise('develop auther?');
+    return { kind, name, version, description, auther };
+}
+
+function validateKind(kind) {
+    kind = kind.toLowerCase();
+    let result = ['console', 'library', 'web'].indexOf(kind) > -1;
+    if (!result) {
+        rl.write('kind is error!\n');
+    }
+    return result;
+}
+
+function validateVersion(version) {
+    let regex = /[1-9]*\d+\.[1-9]*\d+\.[1-9]*\d+/g;
+    let result = regex.test(version);
+    if (!result) {
+        rl.write('version is error!\n');
+    }
+    return result;
 }
 
 /**

@@ -1,0 +1,36 @@
+{
+  "name": "${name}",
+  "version": "${version}",
+  "description": "${description}",
+  "main": "./dist/index.js",
+  "bin": {
+    "bluefox": "./bin/start.js"
+  },
+  "scripts": {
+    "clean": "gulp clean",
+    "build": "gulp",
+    "dev": "gulp debug",
+    "lint": "gulp eslint"
+  },
+  "author": "${auther}",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-node-debug": "^2.0.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^3.5.0",
+    "del": "^2.2.2",
+    "eslint": "^3.19.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1",
+    "gulp-sourcemaps": "^2.6.0",
+    "mocha": "^3.3.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "co": "^4.6.0"
+  }
+}

@@ -13,3 +13,28 @@ Object.prototype.getValueOrDefault = function (name, defaultValue) {
         return defaultValue;
     }
 };
+
+/**
+ * 判断字符串是否为空
+ */
+String.prototype.isEmpty = function () {
+    let result = this === undefined || this === null || this === '';
+    return result;
+};
+
+/**
+ * 将普通的字符串转换成模板字符串，同时如果字符串中包含模板字符串的参数，使用data中的同名属性替换
+ * @param {String} templateString 
+ * @param {Object} data 
+ */
+export function convertTemplateString(templateString, data) {
+    if (data === undefined || data === null) {
+        return (new Function('return `' + templateString + '`;')).apply();
+    }
+    let keys = Object.keys(data);
+    let values = keys.map((elem) => {
+        return data[elem];
+    });
+
+    return (new Function(...keys, 'return String.raw`' + templateString + '`;')).apply(null, values);
+}

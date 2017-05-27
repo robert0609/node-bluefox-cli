@@ -4,182 +4,27 @@
 import co from 'co';
 import fs from 'fs';
 import path from 'path';
-import './utility';
+import {convertTemplateString} from './utility';
 
 let baseDirectory = process.cwd();
+let configConsoleDirectory = path.resolve(__dirname, '../conf/console/');
+let configLibraryDirectory = path.resolve(__dirname, '../conf/library/');
+let configWebDirectory = path.resolve(__dirname, '../conf/web/');
+let userConfigContent = null;
 
-function content(userConfig) {
-    const babelrcContent = `{
-    "presets": [
-        "es2015"
-    ],
-    "plugins": []
-}`;
-
-    const packageContent = `{
-  "name": "${userConfig.name}",
-  "version": "${userConfig.version}",
-  "description": "${userConfig.description}",
-  "main": "./dist/index.js",
-  "bin": {
-    "bluefox": "./bin/start.js"
-  },
-  "scripts": {
-    "clean": "./node_modules/.bin/gulp clean",
-    "build": "./node_modules/.bin/gulp",
-    "dev": "./node_modules/.bin/gulp debug",
-    "lint": "./node_modules/.bin/gulp eslint"
-  },
-  "author": "${userConfig.auther}",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-eslint": "^7.2.3",
-    "babel-node-debug": "^2.0.0",
-    "babel-polyfill": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "chai": "^3.5.0",
-    "del": "^2.2.2",
-    "eslint": "^3.19.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-eslint": "^3.0.1",
-    "gulp-sourcemaps": "^2.6.0",
-    "mocha": "^3.3.0"
-  },
-  "dependencies": {
-    "babel-polyfill": "^6.23.0",
-    "co": "^4.6.0"
-  }
-}`;
-
-    const readmeContent = `# ${userConfig.name}
-
-> ${userConfig.description}
-
-## Build Setup
-
-\`\`\` bash
-# install dependencies
-npm install
-
-# serve development program
-npm run dev
-
-# build for production
-npm run build
-\`\`\``;
-
-    const gulpFileContent = `var gulp = require('gulp');
-var babel = require("gulp-babel");
-var sourcemaps = require("gulp-sourcemaps");
-var del = require('del');
-var eslint = require('gulp-eslint');
-
-gulp.task('eslint', function () {
-    return gulp.src(['./src/*.js', './conf/*.js'])
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
-});
-
-gulp.task('mocha', function () {});
-
-gulp.task('clean', ['eslint'], function () {
-    return del([
-        './dist/**/*'
-    ]);
-});
-
-gulp.task('development_build', ['clean'], function () {
-    return gulp.src('./src/*.js')
-    .pipe(sourcemaps.init())
-    .pipe(babel())
-    .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../src'}))
-    .pipe(gulp.dest('./dist'));
-});
-
-gulp.task('production_build', ['clean'], function () {
-    return gulp.src('./src/*.js')
-    .pipe(babel())
-    .pipe(gulp.dest('./dist'));
-});
-
-gulp.task('debug', ['development_build'], function () {
-    require('./dist/index');
-});
-
-gulp.task('default', ['production_build']);`;
-
-    const startContent = `#!/usr/bin/env node
-
-require('../dist/index');`;
-
-    const indexContent = `/**
-* 主模块文件
-*/
-import 'babel-polyfill';
-
-/**
- * 入口函数
- */
-function main(...args) {
-    process.stdout.write('Hello world!\\n');
-}
-
-/**
- * 缺省执行main函数
- */
-main(...process.argv.slice(2));`;
-
-    const ignoreContent = `build/
-src/
-test/
-.vscode/
-gulpfile.js`;
-
-    const eslintContent = `module.exports = {
-    "root": true,
-    "parser": "babel-eslint",
-    "env": {
-        "es6": true,
-        "node": true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "sourceType": "module"
-    },
-    "rules": {
-        "linebreak-style": [ "error",  "windows" ],
-        "quotes": [ "error", "single" ],
-        "semi": [ "error", "always" ],
-        "no-unused-vars": "warn",
-        "no-console": "warn"
-    }
-};`;
-
-    return {
-        babelrcContent,
-        packageContent,
-        readmeContent,
-        gulpFileContent,
-        startContent,
-        indexContent,
-        ignoreContent,
-        eslintContent
-    };
-}
-
-const toCreateFiles = new Map([
-    [path.join(baseDirectory, '/.babelrc'), 'babelrcContent'],
-    [path.join(baseDirectory, '/package.json'), 'packageContent'],
-    [path.join(baseDirectory, '/readme.md'), 'readmeContent'],
-    [path.join(baseDirectory, '/gulpfile.js'), 'gulpFileContent'],
-    [path.join(baseDirectory, '/bin/start.js'), 'startContent'],
-    [path.join(baseDirectory, '/src/index.js'), 'indexContent'],
-    [path.join(baseDirectory, '/.npmignore'), 'ignoreContent'],
-    [path.join(baseDirectory, '/.eslintrc.js'), 'eslintContent']
+const toCreateConsoleFiles = new Map([
+    [path.join(baseDirectory, '/.babelrc'), path.join(configConsoleDirectory, '/babelrc.template')],
+    [path.join(baseDirectory, '/package.json'), path.join(configConsoleDirectory, '/package.template')],
+    [path.join(baseDirectory, '/readme.md'), path.join(configConsoleDirectory, '/readme.template')],
+    [path.join(baseDirectory, '/gulpfile.js'), path.join(configConsoleDirectory, '/gulpfile.template')],
+    [path.join(baseDirectory, '/bin/start.js'), path.join(configConsoleDirectory, '/start.template')],
+    [path.join(baseDirectory, '/src/index.js'), path.join(configConsoleDirectory, '/index.template')],
+    [path.join(baseDirectory, '/.npmignore'), path.join(configConsoleDirectory, '/npmignore.template')],
+    [path.join(baseDirectory, '/.eslintrc.js'), path.join(configConsoleDirectory, '/eslintrc.template')]
 ]);
+
+const toCreateLibraryFiles = new Map([]);
+const toCreateWebFiles = new Map([]);
 
 function* doesFileExist(filename) {
     let isExists = yield new Promise((resolve, reject) => {
@@ -200,8 +45,22 @@ function* doesFileExist(filename) {
     return isExists;
 }
 
-function* createFile(filename, content) {
+function* createFile(filename, templateFilename) {
     let isExists = yield* doesFileExist(filename);
+    let content = yield new Promise((resolve, reject) => {
+        let rs = fs.createReadStream(templateFilename);
+        let result = '';
+        rs.on('data', (data) => {
+            result += data;
+        }).on('end', () => {
+            resolve(result);
+        }).on('close', () => {
+            // console.log('close');
+        }).on('error', (error) => {
+            reject(error);
+        });
+    });
+    content = convertTemplateString(content, userConfigContent);
     let result = yield new Promise((resolve, reject) => {
         let ws = fs.createWriteStream(filename);
         ws.on('finish', () => {
@@ -211,8 +70,28 @@ function* createFile(filename, content) {
         }).on('error', (error) => {
             reject(error);
         });
-        ws.write(content);
-        ws.end();
+        let contentBuffer = Buffer.from(content);
+        let length = contentBuffer.length;
+        let hasWriteLength = 0;
+        writeChunk();
+
+        function writeChunk() {
+            let writeResult = true;
+            while (writeResult && hasWriteLength < length) {
+                let restLength = length - hasWriteLength;
+                let toWriteLength = restLength < 10240 ? restLength : 10240;
+                let toWriteBuffer = contentBuffer.slice(hasWriteLength, toWriteLength);
+                writeResult = ws.write(toWriteBuffer);
+                hasWriteLength += toWriteLength;
+            }
+            if (!writeResult) {
+                ws.once('drain', writeChunk);
+                return;
+            }
+            if (hasWriteLength === length) {
+                ws.end();
+            }
+        }
     });
     return result;
 }
@@ -225,11 +104,23 @@ function run(userConfig, callback) {
     let o = { callback };
     callback = o.getValueOrDefault('callback', (error, data) => {});
     let that = this;
+    userConfigContent = userConfig;
+    let toCreateFiles = null;
+    switch (userConfigContent.kind.toLowerCase()) {
+        case 'console':
+            toCreateFiles = toCreateConsoleFiles;
+            break;
+        case 'library':
+            toCreateFiles = toCreateLibraryFiles;
+            break;
+        case 'web':
+            toCreateFiles = toCreateWebFiles;
+            break;
+    }
 
-    let contentProvider = content(userConfig);
     let promises = [];
     for (let [key, value] of toCreateFiles) {
-        promises.push(co(createFile(key, contentProvider[value])));
+        promises.push(co(createFile(key, value)));
     }
     Promise.all(promises).then((results) => {
         callback.call(that);
