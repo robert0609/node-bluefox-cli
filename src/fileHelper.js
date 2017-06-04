@@ -13,18 +13,27 @@ let configWebDirectory = path.resolve(__dirname, '../conf/web/');
 let userConfigContent = null;
 
 const toCreateConsoleFiles = new Map([
-    [path.join(baseDirectory, '/.babelrc'), path.join(configConsoleDirectory, '/babelrc.template')],
-    [path.join(baseDirectory, '/package.json'), path.join(configConsoleDirectory, '/package.template')],
-    [path.join(baseDirectory, '/readme.md'), path.join(configConsoleDirectory, '/readme.template')],
-    [path.join(baseDirectory, '/gulpfile.js'), path.join(configConsoleDirectory, '/gulpfile.template')],
-    [path.join(baseDirectory, '/bin/start.js'), path.join(configConsoleDirectory, '/start.template')],
-    [path.join(baseDirectory, '/src/index.js'), path.join(configConsoleDirectory, '/index.template')],
-    [path.join(baseDirectory, '/.npmignore'), path.join(configConsoleDirectory, '/npmignore.template')],
-    [path.join(baseDirectory, '/.eslintrc.js'), path.join(configConsoleDirectory, '/eslintrc.template')]
+    [path.join(baseDirectory, '/.babelrc'), path.join(configConsoleDirectory, '/babelrc.tmpl')],
+    [path.join(baseDirectory, '/package.json'), path.join(configConsoleDirectory, '/package.tmpl')],
+    [path.join(baseDirectory, '/readme.md'), path.join(configConsoleDirectory, '/readme.tmpl')],
+    [path.join(baseDirectory, '/gulpfile.js'), path.join(configConsoleDirectory, '/gulpfile.tmpl')],
+    [path.join(baseDirectory, '/bin/start.js'), path.join(configConsoleDirectory, '/start.tmpl')],
+    [path.join(baseDirectory, '/src/index.js'), path.join(configConsoleDirectory, '/index.tmpl')],
+    [path.join(baseDirectory, '/.npmignore'), path.join(configConsoleDirectory, '/npmignore.tmpl')],
+    [path.join(baseDirectory, '/.eslintrc.js'), path.join(configConsoleDirectory, '/eslintrc.tmpl')]
 ]);
 
 const toCreateLibraryFiles = new Map([]);
-const toCreateWebFiles = new Map([]);
+const toCreateWebFiles = new Map([
+    [path.join(baseDirectory, '/.babelrc'), path.join(configConsoleDirectory, '/babelrc.tmpl')],
+    [path.join(baseDirectory, '/package.json'), path.join(configConsoleDirectory, '/package.tmpl')],
+    [path.join(baseDirectory, '/readme.md'), path.join(configConsoleDirectory, '/readme.tmpl')],
+    [path.join(baseDirectory, '/gulpfile.js'), path.join(configConsoleDirectory, '/gulpfile.tmpl')],
+    [path.join(baseDirectory, '/bin/start.js'), path.join(configConsoleDirectory, '/start.tmpl')],
+    [path.join(baseDirectory, '/src/index.js'), path.join(configConsoleDirectory, '/index.tmpl')],
+    [path.join(baseDirectory, '/.npmignore'), path.join(configConsoleDirectory, '/npmignore.tmpl')],
+    [path.join(baseDirectory, '/.eslintrc.js'), path.join(configConsoleDirectory, '/eslintrc.tmpl')]
+]);
 
 function* doesFileExist(filename) {
     let isExists = yield new Promise((resolve, reject) => {
