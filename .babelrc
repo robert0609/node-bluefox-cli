@@ -1,6 +1,14 @@
 {
-    "presets": [
-      "es2015"
-    ],
-    "plugins": []
+	"presets": [
+		[
+			"env",
+			{
+				"target": {
+					"node": "current"
+				},
+				"useBuiltIns": true
+			}
+		]
+	],
+	"plugins": []
 }

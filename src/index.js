@@ -28,7 +28,7 @@ function* run() {
     let cmdPromise = convertPromise(cmd.run);
     let userConfig = yield cmdPromise();
     let dirPromise = convertPromise(dirHelper.run);
-    yield dirPromise();
+    yield dirPromise(userConfig);
     let filePromise = convertPromise(fileHelper.run);
     yield filePromise(userConfig);
 }

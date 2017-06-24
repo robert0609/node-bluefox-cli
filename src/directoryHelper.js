@@ -8,14 +8,36 @@ import './utility';
 
 let baseDirectory = process.cwd();
 
-let toCreateDirs = [
-    path.join(baseDirectory, '/bin'), 
-    path.join(baseDirectory, '/build'), 
-    path.join(baseDirectory, '/conf'), 
-    path.join(baseDirectory, '/dist'), 
-    path.join(baseDirectory, '/doc'), 
-    path.join(baseDirectory, '/src'), 
+let toCreateConsoleDirs = [
+    path.join(baseDirectory, '/bin'),
+    path.join(baseDirectory, '/build'),
+    path.join(baseDirectory, '/conf'),
+    path.join(baseDirectory, '/dist'),
+    path.join(baseDirectory, '/doc'),
+    path.join(baseDirectory, '/src'),
     path.join(baseDirectory, '/test')
+];
+
+let toCreateLibraryDirs = [
+    path.join(baseDirectory, '/build'),
+    path.join(baseDirectory, '/conf'),
+    path.join(baseDirectory, '/dist'),
+    path.join(baseDirectory, '/doc'),
+    path.join(baseDirectory, '/src'),
+    path.join(baseDirectory, '/test')
+];
+
+let toCreateWebDirs = [
+    path.join(baseDirectory, '/build'),
+    path.join(baseDirectory, '/conf'),
+    path.join(baseDirectory, '/src'),
+    path.join(baseDirectory, '/test'),
+		path.join(baseDirectory, '/src/common'),
+		path.join(baseDirectory, '/src/pages'),
+		path.join(baseDirectory, '/src/pages/home'),
+		path.join(baseDirectory, '/src/static'),
+		path.join(baseDirectory, '/src/static/home'),
+    path.join(baseDirectory, '/test/unit')
 ];
 
 function* createFolder(targetDir) {
@@ -54,12 +76,26 @@ function* createFolder(targetDir) {
 
 /**
  * 创建项目文件夹
- * @param {function} callback 
+ * @param {object} userConfig
+ * @param {function} callback
  */
-function run(callback) {
+function run(userConfig, callback) {
     let o = { callback };
     callback = o.getValueOrDefault('callback', (error, data) => {});
     let that = this;
+    let toCreateDirs = null;
+    switch (userConfig.kind.toLowerCase()) {
+        case 'console':
+            toCreateDirs = toCreateConsoleDirs;
+            break;
+        case 'library':
+            toCreateDirs = toCreateLibraryDirs;
+            break;
+        case 'web':
+            toCreateDirs = toCreateWebDirs;
+            break;
+    }
+
     let promises = toCreateDirs.map((elem) => {
         return co(createFolder(elem));
     });

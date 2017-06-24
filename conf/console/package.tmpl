@@ -4,7 +4,7 @@
   "description": "${description}",
   "main": "./dist/index.js",
   "bin": {
-    "bluefox": "./bin/start.js"
+    "${name}": "./bin/start.js"
   },
   "scripts": {
     "clean": "gulp clean",
@@ -19,7 +19,7 @@
     "babel-eslint": "^7.2.3",
     "babel-node-debug": "^2.0.0",
     "babel-polyfill": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.5.2",
     "chai": "^3.5.0",
     "del": "^2.2.2",
     "eslint": "^3.19.0",
@@ -30,7 +30,6 @@
     "mocha": "^3.3.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.23.0",
-    "co": "^4.6.0"
+    "babel-polyfill": "^6.23.0"
   }
 }
