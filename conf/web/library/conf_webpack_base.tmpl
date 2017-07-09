@@ -1,6 +1,5 @@
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
 function __path_src() {
@@ -30,15 +29,34 @@ function __cssLoaders() {
 	}
 }
 
+function __urlLoaders() {
+	if (process.env.NODE_ENV === 'production') {
+		return [
+			{
+				loader: 'url-loader',
+				options: {
+					limit: 8192,
+					name: 'img/[name].[ext]'
+				}
+			}
+		];
+	}
+	else {
+		return [
+			{
+				loader: 'url-loader',
+				options: {
+					limit: 8192,
+					name: 'static/img/[name].[ext]'
+				}
+			}
+		];
+	}
+}
+
 module.exports = {
 	entry: {
-		app: __path_src()
-	},
-	output: {
-		path: path.resolve(__dirname, '../dist'),
-		filename: 'static/js/[name]-[chunkhash:7].js',
-		chunkFilename: 'static/js/[id].[chunkhash:7].js',
-		publicPath: '/dist/'
+		index: __path_src()
 	},
 	devtool: 'source-map',
 	module: {
@@ -101,21 +119,8 @@ module.exports = {
 						__path_test()
 					]
 				},
-				use: [
-					{
-						loader: 'url-loader',
-						options: {
-							limit: 8192,
-							name: 'static/img/[name].[hash:7].[ext]'
-						}
-					}
-				]
+				use: __urlLoaders()
 			}
 		]
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, './index.html')
-		})
-	]
+	}
 };

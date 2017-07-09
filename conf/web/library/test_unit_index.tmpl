@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import home from '../../src/pages/home';
+import { main } from '../../src/index';
 
-describe('home_test', function () {
+describe('index_test', function () {
 	before(function () {
 		// 在本区块的所有测试用例之前执行
 	});
@@ -18,9 +18,8 @@ describe('home_test', function () {
 		// 在本区块的每个测试用例之后执行
 	});
 
-	it('should_be_rendered_correctly', () => {
-		let ele = home.render();
-		let text = ele.querySelector('h2').innerText;
+	it('should_be_return_correctly', () => {
+		let text = main();
 		expect(text).to.be.equal('Hello world!');
 	});
 });

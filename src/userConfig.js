@@ -38,7 +38,8 @@ function* conversation() {
 	}
 	while (!validateKind(kind));
 	let subKind = '';
-	if (kind === 'web') {
+	let webLibrary = '';
+	if (kind.toLowerCase() === 'web') {
 		do {
 			subKind = yield createQuestionPromise('sub type("site"or"library", default: site)?');
 			if (subKind.isEmpty()) {
@@ -46,6 +47,12 @@ function* conversation() {
 			}
 		}
 		while (!validateSubKind(subKind));
+		if (subKind.toLowerCase() === 'library') {
+			do {
+				webLibrary = yield createQuestionPromise('web library name?(A-Za-z0-9_)');
+			}
+			while (validateWebLibrary(webLibrary));
+		}
 	}
 	let name = yield createQuestionPromise('package name?');
 	let version = '';
@@ -58,7 +65,7 @@ function* conversation() {
 	while (!validateVersion(version));
 	let description = yield createQuestionPromise('package description?');
 	let auther = yield createQuestionPromise('develop auther?');
-	return { kind, subKind, name, version, description, auther };
+	return { kind, subKind, webLibrary, name, version, description, auther };
 }
 
 function validateKind(kind) {
@@ -75,6 +82,15 @@ function validateSubKind(subKind) {
 	let result = ['site', 'library'].indexOf(subKind) > -1;
 	if (!result) {
 		rl.write('project sub type is error!\n');
+	}
+	return result;
+}
+
+function validateWebLibrary(webLibrary) {
+	webLibrary = webLibrary.toLowerCase();
+	let result = webLibrary && /\w/g.test(webLibrary);
+	if (!result) {
+		rl.write('web library name is invalid!\n');
 	}
 	return result;
 }
