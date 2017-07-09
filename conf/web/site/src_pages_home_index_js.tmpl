@@ -1,0 +1,13 @@
+import html from './index.html';
+import './index.css';
+
+function render() {
+	var div = document.createElement('div');
+	div.innerHTML = html;
+	document.body.appendChild(div);
+	return div;
+}
+
+export default {
+	render
+};

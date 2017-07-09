@@ -35,28 +35,52 @@ const toCreateLibraryFiles = new Map([
 	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configLibraryDirectory, '/eslintrc.tmpl')]
 ]);
 
-const toCreateWebFiles = new Map([
-	[path.join(baseDirectory, '/.babelrc'), path.join(configWebDirectory, '/babelrc.tmpl')],
-	[path.join(baseDirectory, '/.editorconfig'), path.join(configWebDirectory, '/editorconfig.tmpl')],
-	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configWebDirectory, '/eslintrc.tmpl')],
-	[path.join(baseDirectory, '/.npmignore'), path.join(configWebDirectory, '/npmignore.tmpl')],
-	[path.join(baseDirectory, '/package.json'), path.join(configWebDirectory, '/package.tmpl')],
-	[path.join(baseDirectory, '/readme.md'), path.join(configWebDirectory, '/readme.tmpl')],
-	[path.join(baseDirectory, '/src/index.js'), path.join(configWebDirectory, '/src_index_js.tmpl')],
-	[path.join(baseDirectory, '/src/pages/home/index.js'), path.join(configWebDirectory, '/src_pages_home_index_js.tmpl')],
-	[path.join(baseDirectory, '/src/pages/home/index.html'), path.join(configWebDirectory, '/src_pages_home_index_html.tmpl')],
-	[path.join(baseDirectory, '/src/pages/home/index.css'), path.join(configWebDirectory, '/src_pages_home_index_css.tmpl')],
-	[path.join(baseDirectory, '/src/static/home/logo.jpg'), path.join(configWebDirectory, '/src_static_home_logo.jpg')],
-	[path.join(baseDirectory, '/test/karma.conf.js'), path.join(configWebDirectory, '/test_karma.tmpl')],
-	[path.join(baseDirectory, '/test/.eslintrc.js'), path.join(configWebDirectory, '/test_eslintrc.tmpl')],
-	[path.join(baseDirectory, '/test/unit/home.test.js'), path.join(configWebDirectory, '/test_unit_home.tmpl')],
-	[path.join(baseDirectory, '/build/dev.js'), path.join(configWebDirectory, '/build_dev.tmpl')],
-	[path.join(baseDirectory, '/build/prod.js'), path.join(configWebDirectory, '/build_prod.tmpl')],
-	[path.join(baseDirectory, '/conf/index.html'), path.join(configWebDirectory, '/conf_html.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.base.config.js'), path.join(configWebDirectory, '/conf_webpack_base.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.dev.config.js'), path.join(configWebDirectory, '/conf_webpack_dev.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.prod.config.js'), path.join(configWebDirectory, '/conf_webpack_prod.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.test.config.js'), path.join(configWebDirectory, '/conf_webpack_test.tmpl')]
+const toCreateWebSiteFiles = new Map([
+	[path.join(baseDirectory, '/.babelrc'), path.join(configWebDirectory, '/site', '/babelrc.tmpl')],
+	[path.join(baseDirectory, '/.editorconfig'), path.join(configWebDirectory, '/site', '/editorconfig.tmpl')],
+	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configWebDirectory, '/site', '/eslintrc.tmpl')],
+	[path.join(baseDirectory, '/.npmignore'), path.join(configWebDirectory, '/site', '/npmignore.tmpl')],
+	[path.join(baseDirectory, '/package.json'), path.join(configWebDirectory, '/site', '/package.tmpl')],
+	[path.join(baseDirectory, '/readme.md'), path.join(configWebDirectory, '/site', '/readme.tmpl')],
+	[path.join(baseDirectory, '/src/index.js'), path.join(configWebDirectory, '/site', '/src_index_js.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/index.js'), path.join(configWebDirectory, '/site', '/src_pages_home_index_js.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/index.html'), path.join(configWebDirectory, '/site', '/src_pages_home_index_html.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/index.css'), path.join(configWebDirectory, '/site', '/src_pages_home_index_css.tmpl')],
+	[path.join(baseDirectory, '/src/static/home/logo.jpg'), path.join(configWebDirectory, '/site', '/src_static_home_logo.jpg')],
+	[path.join(baseDirectory, '/test/karma.conf.js'), path.join(configWebDirectory, '/site', '/test_karma.tmpl')],
+	[path.join(baseDirectory, '/test/.eslintrc.js'), path.join(configWebDirectory, '/site', '/test_eslintrc.tmpl')],
+	[path.join(baseDirectory, '/test/unit/home.test.js'), path.join(configWebDirectory, '/site', '/test_unit_home.tmpl')],
+	[path.join(baseDirectory, '/build/dev.js'), path.join(configWebDirectory, '/site', '/build_dev.tmpl')],
+	[path.join(baseDirectory, '/build/prod.js'), path.join(configWebDirectory, '/site', '/build_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/index.html'), path.join(configWebDirectory, '/site', '/conf_html.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.base.config.js'), path.join(configWebDirectory, '/site', '/conf_webpack_base.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.dev.config.js'), path.join(configWebDirectory, '/site', '/conf_webpack_dev.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.prod.config.js'), path.join(configWebDirectory, '/site', '/conf_webpack_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.test.config.js'), path.join(configWebDirectory, '/site', '/conf_webpack_test.tmpl')]
+]);
+
+const toCreateWebLibraryFiles = new Map([
+	[path.join(baseDirectory, '/.babelrc'), path.join(configWebDirectory, '/library', '/babelrc.tmpl')],
+	[path.join(baseDirectory, '/.editorconfig'), path.join(configWebDirectory, '/library', '/editorconfig.tmpl')],
+	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configWebDirectory, '/library', '/eslintrc.tmpl')],
+	[path.join(baseDirectory, '/.npmignore'), path.join(configWebDirectory, '/library', '/npmignore.tmpl')],
+	[path.join(baseDirectory, '/package.json'), path.join(configWebDirectory, '/library', '/package.tmpl')],
+	[path.join(baseDirectory, '/readme.md'), path.join(configWebDirectory, '/library', '/readme.tmpl')],
+	[path.join(baseDirectory, '/src/index.js'), path.join(configWebDirectory, '/library', '/src_index_js.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/index.js'), path.join(configWebDirectory, '/library', '/src_pages_home_index_js.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/index.html'), path.join(configWebDirectory, '/library', '/src_pages_home_index_html.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/index.css'), path.join(configWebDirectory, '/library', '/src_pages_home_index_css.tmpl')],
+	[path.join(baseDirectory, '/src/static/home/logo.jpg'), path.join(configWebDirectory, '/library', '/src_static_home_logo.jpg')],
+	[path.join(baseDirectory, '/test/karma.conf.js'), path.join(configWebDirectory, '/library', '/test_karma.tmpl')],
+	[path.join(baseDirectory, '/test/.eslintrc.js'), path.join(configWebDirectory, '/library', '/test_eslintrc.tmpl')],
+	[path.join(baseDirectory, '/test/unit/home.test.js'), path.join(configWebDirectory, '/library', '/test_unit_home.tmpl')],
+	[path.join(baseDirectory, '/build/dev.js'), path.join(configWebDirectory, '/library', '/build_dev.tmpl')],
+	[path.join(baseDirectory, '/build/prod.js'), path.join(configWebDirectory, '/library', '/build_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/index.html'), path.join(configWebDirectory, '/library', '/conf_html.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.base.config.js'), path.join(configWebDirectory, '/library', '/conf_webpack_base.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.dev.config.js'), path.join(configWebDirectory, '/library', '/conf_webpack_dev.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.prod.config.js'), path.join(configWebDirectory, '/library', '/conf_webpack_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.test.config.js'), path.join(configWebDirectory, '/library', '/conf_webpack_test.tmpl')]
 ]);
 
 function* doesFileExist(filename) {
@@ -150,7 +174,12 @@ function run(userConfig, callback) {
 			toCreateFiles = toCreateLibraryFiles;
 			break;
 		case 'web':
-			toCreateFiles = toCreateWebFiles;
+			if (userConfigContent.subKind.toLowerCase() === 'library') {
+				toCreateFiles = toCreateWebLibraryFiles;
+			}
+			else {
+				toCreateFiles = toCreateWebSiteFiles;
+			}
 			break;
 	}
 
