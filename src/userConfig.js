@@ -51,7 +51,7 @@ function* conversation() {
 			do {
 				webLibrary = yield createQuestionPromise('web library name?(A-Za-z0-9_)');
 			}
-			while (validateWebLibrary(webLibrary));
+			while (!validateWebLibrary(webLibrary));
 		}
 	}
 	let name = yield createQuestionPromise('package name?');
@@ -87,7 +87,6 @@ function validateSubKind(subKind) {
 }
 
 function validateWebLibrary(webLibrary) {
-	webLibrary = webLibrary.toLowerCase();
 	let result = webLibrary && /\w/g.test(webLibrary);
 	if (!result) {
 		rl.write('web library name is invalid!\n');
