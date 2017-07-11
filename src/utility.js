@@ -37,7 +37,8 @@ export function convertTemplateString(templateString, data) {
 		return data[elem];
 	});
 
-	return (new Function(...keys, 'return String.raw`' + templateString + '`;')).apply(null, values);
+	// return (new Function(...keys, 'return String.raw`' + templateString + '`;')).apply(null, values);
+	return (new Function(...keys, 'return `' + templateString.replace(/\\/g, '\\\\').replace(/`/g, '\\`') + '`;')).apply(null, values);
 }
 
 /**
