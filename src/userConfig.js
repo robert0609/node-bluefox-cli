@@ -57,9 +57,9 @@ function* conversation() {
 	let name = yield createQuestionPromise('package name?');
 	let version = '';
 	do {
-		version = yield createQuestionPromise('package version(default: 1.0.0)?');
+		version = yield createQuestionPromise('package version(default: 0.0.1)?');
 		if (version.isEmpty()) {
-			version = '1.0.0';
+			version = '0.0.1';
 		}
 	}
 	while (!validateVersion(version));

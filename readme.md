@@ -14,3 +14,11 @@ npm run dev
 # build for production
 npm run build
 ```
+
+## How to use?
+
+``` bash
+# windows commond console
+bluefox
+
+```
