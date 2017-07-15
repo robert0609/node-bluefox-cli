@@ -14,7 +14,11 @@ module.exports = {
 		"import"
 	],
 	"settings": {
-		"import/resolver": "webpack"
+		"import/resolver": {
+			"webpack": {
+				"config": "conf/webpack.base.config.js"
+			}
+		}
 	},
 	"rules": {
 		"quotes": ["error", "single"],

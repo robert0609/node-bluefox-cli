@@ -6,7 +6,7 @@ var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 var path = require('path');
 
 module.exports = merge(baseConfig, {
-	devtool: 'cheap-source-map',
+	devtool: false,
 	output: {
 		path: path.resolve(__dirname, '../dist'),
 		filename: '${webLibrary}.min.js',
@@ -21,7 +21,7 @@ module.exports = merge(baseConfig, {
 			},
 			sourceMap: false
 		}),
-		new ExtractTextPlugin('[name].css'),
+		new ExtractTextPlugin('${webLibrary}.min.css'),
 		new OptimizeCSSPlugin({
 			cssProcessorOptions: {
 				safe: true
