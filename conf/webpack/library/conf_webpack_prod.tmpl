@@ -14,6 +14,13 @@ module.exports = merge(baseConfig, {
 		library: '${webLibrary}',
 		libraryTarget: 'umd'
 	},
+	externals: {
+		'babel-polyfill': {
+			commonjs: 'babel-polyfill',
+			commonjs2: 'babel-polyfill',
+			amd: 'babel-polyfill'
+		}
+	},
 	plugins: [
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {

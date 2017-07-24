@@ -49,7 +49,7 @@ function* conversation() {
 		while (!validateSubKind(subKind));
 		if (subKind.toLowerCase() === 'library') {
 			do {
-				webLibrary = yield createQuestionPromise('web library name?(A-Za-z0-9_)');
+				webLibrary = yield createQuestionPromise('webpack library name?(A-Za-z0-9_)');
 			}
 			while (!validateWebLibrary(webLibrary));
 		}
@@ -89,7 +89,7 @@ function validateSubKind(subKind) {
 function validateWebLibrary(webLibrary) {
 	let result = webLibrary && /\w/g.test(webLibrary);
 	if (!result) {
-		rl.write('web library name is invalid!\n');
+		rl.write('webpack library name is invalid!\n');
 	}
 	return result;
 }
