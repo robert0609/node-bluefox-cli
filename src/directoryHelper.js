@@ -27,7 +27,7 @@ let toCreateLibraryDirs = [
 	path.join(baseDirectory, '/test')
 ];
 
-let toCreateWebSiteDirs = [
+let toCreateWebpackSiteDirs = [
 	path.join(baseDirectory, '/build'),
 	path.join(baseDirectory, '/conf'),
 	path.join(baseDirectory, '/src'),
@@ -40,7 +40,7 @@ let toCreateWebSiteDirs = [
 	path.join(baseDirectory, '/test/unit')
 ];
 
-let toCreateWebLibraryDirs = [
+let toCreateWebpackLibraryDirs = [
 	path.join(baseDirectory, '/build'),
 	path.join(baseDirectory, '/conf'),
 	path.join(baseDirectory, '/src'),
@@ -102,12 +102,12 @@ function run(userConfig, callback) {
 		case 'library':
 			toCreateDirs = toCreateLibraryDirs;
 			break;
-		case 'web':
+		case 'webpack':
 			if (userConfig.subKind.toLowerCase() === 'library') {
-				toCreateDirs = toCreateWebLibraryDirs;
+				toCreateDirs = toCreateWebpackLibraryDirs;
 			}
 			else {
-				toCreateDirs = toCreateWebSiteDirs;
+				toCreateDirs = toCreateWebpackSiteDirs;
 			}
 			break;
 	}

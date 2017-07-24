@@ -2,7 +2,7 @@
   "name": "${name}",
   "version": "${version}",
   "description": "${description}",
-  "private": true,
+  "main": "./dist/${webLibrary}.min.js",
   "scripts": {
     "prod": "cross-env NODE_ENV=production node build/prod.js",
     "dev": "cross-env NODE_ENV=development node build/dev.js",
@@ -13,12 +13,11 @@
   "author": "${auther}",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
-    "babel-node-debug": "^2.0.0",
     "babel-plugin-istanbul": "^4.1.4",
-    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-transform-regenerator": "^6.24.1",
     "babel-preset-env": "^1.5.2",
     "babel-preset-stage-2": "^6.24.1",
     "chai": "^3.5.0",

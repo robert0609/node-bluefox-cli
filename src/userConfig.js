@@ -31,7 +31,7 @@ function createQuestionPromise(question) {
 function* conversation() {
 	let kind = '';
 	do {
-		kind = yield createQuestionPromise('project type("console"、"library"or"web", default: console)?');
+		kind = yield createQuestionPromise('project type("console"、"library"or"webpack", default: console)?');
 		if (kind.isEmpty()) {
 			kind = 'console';
 		}
@@ -39,7 +39,7 @@ function* conversation() {
 	while (!validateKind(kind));
 	let subKind = '';
 	let webLibrary = '';
-	if (kind.toLowerCase() === 'web') {
+	if (kind.toLowerCase() === 'webpack') {
 		do {
 			subKind = yield createQuestionPromise('sub type("site"or"library", default: site)?');
 			if (subKind.isEmpty()) {
@@ -70,7 +70,7 @@ function* conversation() {
 
 function validateKind(kind) {
 	kind = kind.toLowerCase();
-	let result = ['console', 'library', 'web'].indexOf(kind) > -1;
+	let result = ['console', 'library', 'webpack'].indexOf(kind) > -1;
 	if (!result) {
 		rl.write('project type is error!\n');
 	}

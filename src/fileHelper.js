@@ -9,7 +9,7 @@ import { convertTemplateString, copyFile } from './utility';
 let baseDirectory = process.cwd();
 let configConsoleDirectory = path.resolve(__dirname, '../conf/console/');
 let configLibraryDirectory = path.resolve(__dirname, '../conf/library/');
-let configWebDirectory = path.resolve(__dirname, '../conf/web/');
+let configWebpackDirectory = path.resolve(__dirname, '../conf/webpack/');
 let userConfigContent = null;
 
 const toCreateConsoleFiles = new Map([
@@ -35,48 +35,48 @@ const toCreateLibraryFiles = new Map([
 	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configLibraryDirectory, '/eslintrc.tmpl')]
 ]);
 
-const toCreateWebSiteFiles = new Map([
-	[path.join(baseDirectory, '/.babelrc'), path.join(configWebDirectory, '/site', '/babelrc.tmpl')],
-	[path.join(baseDirectory, '/.editorconfig'), path.join(configWebDirectory, '/site', '/editorconfig.tmpl')],
-	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configWebDirectory, '/site', '/eslintrc.tmpl')],
-	[path.join(baseDirectory, '/.npmignore'), path.join(configWebDirectory, '/site', '/npmignore.tmpl')],
-	[path.join(baseDirectory, '/package.json'), path.join(configWebDirectory, '/site', '/package.tmpl')],
-	[path.join(baseDirectory, '/readme.md'), path.join(configWebDirectory, '/site', '/readme.tmpl')],
-	[path.join(baseDirectory, '/src/index.js'), path.join(configWebDirectory, '/site', '/src_index_js.tmpl')],
-	[path.join(baseDirectory, '/src/pages/home/index.js'), path.join(configWebDirectory, '/site', '/src_pages_home_index_js.tmpl')],
-	[path.join(baseDirectory, '/src/pages/home/index.html'), path.join(configWebDirectory, '/site', '/src_pages_home_index_html.tmpl')],
-	[path.join(baseDirectory, '/src/pages/home/index.css'), path.join(configWebDirectory, '/site', '/src_pages_home_index_css.tmpl')],
-	[path.join(baseDirectory, '/src/static/home/logo.jpg'), path.join(configWebDirectory, '/site', '/src_static_home_logo.jpg')],
-	[path.join(baseDirectory, '/test/karma.conf.js'), path.join(configWebDirectory, '/site', '/test_karma.tmpl')],
-	[path.join(baseDirectory, '/test/.eslintrc.js'), path.join(configWebDirectory, '/site', '/test_eslintrc.tmpl')],
-	[path.join(baseDirectory, '/test/unit/home.test.js'), path.join(configWebDirectory, '/site', '/test_unit_home.tmpl')],
-	[path.join(baseDirectory, '/build/dev.js'), path.join(configWebDirectory, '/site', '/build_dev.tmpl')],
-	[path.join(baseDirectory, '/build/prod.js'), path.join(configWebDirectory, '/site', '/build_prod.tmpl')],
-	[path.join(baseDirectory, '/conf/index.html'), path.join(configWebDirectory, '/site', '/conf_html.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.base.config.js'), path.join(configWebDirectory, '/site', '/conf_webpack_base.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.dev.config.js'), path.join(configWebDirectory, '/site', '/conf_webpack_dev.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.prod.config.js'), path.join(configWebDirectory, '/site', '/conf_webpack_prod.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.test.config.js'), path.join(configWebDirectory, '/site', '/conf_webpack_test.tmpl')]
+const toCreateWebpackSiteFiles = new Map([
+	[path.join(baseDirectory, '/.babelrc'), path.join(configWebpackDirectory, '/site', '/babelrc.tmpl')],
+	[path.join(baseDirectory, '/.editorconfig'), path.join(configWebpackDirectory, '/site', '/editorconfig.tmpl')],
+	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configWebpackDirectory, '/site', '/eslintrc.tmpl')],
+	[path.join(baseDirectory, '/.npmignore'), path.join(configWebpackDirectory, '/site', '/npmignore.tmpl')],
+	[path.join(baseDirectory, '/package.json'), path.join(configWebpackDirectory, '/site', '/package.tmpl')],
+	[path.join(baseDirectory, '/readme.md'), path.join(configWebpackDirectory, '/site', '/readme.tmpl')],
+	[path.join(baseDirectory, '/src/index.js'), path.join(configWebpackDirectory, '/site', '/src_index_js.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/index.js'), path.join(configWebpackDirectory, '/site', '/src_pages_home_index_js.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/index.html'), path.join(configWebpackDirectory, '/site', '/src_pages_home_index_html.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/index.css'), path.join(configWebpackDirectory, '/site', '/src_pages_home_index_css.tmpl')],
+	[path.join(baseDirectory, '/src/static/home/logo.jpg'), path.join(configWebpackDirectory, '/site', '/src_static_home_logo.jpg')],
+	[path.join(baseDirectory, '/test/karma.conf.js'), path.join(configWebpackDirectory, '/site', '/test_karma.tmpl')],
+	[path.join(baseDirectory, '/test/.eslintrc.js'), path.join(configWebpackDirectory, '/site', '/test_eslintrc.tmpl')],
+	[path.join(baseDirectory, '/test/unit/home.test.js'), path.join(configWebpackDirectory, '/site', '/test_unit_home.tmpl')],
+	[path.join(baseDirectory, '/build/dev.js'), path.join(configWebpackDirectory, '/site', '/build_dev.tmpl')],
+	[path.join(baseDirectory, '/build/prod.js'), path.join(configWebpackDirectory, '/site', '/build_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/index.html'), path.join(configWebpackDirectory, '/site', '/conf_html.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.base.config.js'), path.join(configWebpackDirectory, '/site', '/conf_webpack_base.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.dev.config.js'), path.join(configWebpackDirectory, '/site', '/conf_webpack_dev.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.prod.config.js'), path.join(configWebpackDirectory, '/site', '/conf_webpack_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.test.config.js'), path.join(configWebpackDirectory, '/site', '/conf_webpack_test.tmpl')]
 ]);
 
-const toCreateWebLibraryFiles = new Map([
-	[path.join(baseDirectory, '/.babelrc'), path.join(configWebDirectory, '/library', '/babelrc.tmpl')],
-	[path.join(baseDirectory, '/.editorconfig'), path.join(configWebDirectory, '/library', '/editorconfig.tmpl')],
-	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configWebDirectory, '/library', '/eslintrc.tmpl')],
-	[path.join(baseDirectory, '/.npmignore'), path.join(configWebDirectory, '/library', '/npmignore.tmpl')],
-	[path.join(baseDirectory, '/package.json'), path.join(configWebDirectory, '/library', '/package.tmpl')],
-	[path.join(baseDirectory, '/readme.md'), path.join(configWebDirectory, '/library', '/readme.tmpl')],
-	[path.join(baseDirectory, '/src/index.js'), path.join(configWebDirectory, '/library', '/src_index_js.tmpl')],
-	[path.join(baseDirectory, '/test/karma.conf.js'), path.join(configWebDirectory, '/library', '/test_karma.tmpl')],
-	[path.join(baseDirectory, '/test/.eslintrc.js'), path.join(configWebDirectory, '/library', '/test_eslintrc.tmpl')],
-	[path.join(baseDirectory, '/test/unit/index.test.js'), path.join(configWebDirectory, '/library', '/test_unit_index.tmpl')],
-	[path.join(baseDirectory, '/build/dev.js'), path.join(configWebDirectory, '/library', '/build_dev.tmpl')],
-	[path.join(baseDirectory, '/build/prod.js'), path.join(configWebDirectory, '/library', '/build_prod.tmpl')],
-	[path.join(baseDirectory, '/conf/index.html'), path.join(configWebDirectory, '/library', '/conf_html.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.base.config.js'), path.join(configWebDirectory, '/library', '/conf_webpack_base.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.dev.config.js'), path.join(configWebDirectory, '/library', '/conf_webpack_dev.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.prod.config.js'), path.join(configWebDirectory, '/library', '/conf_webpack_prod.tmpl')],
-	[path.join(baseDirectory, '/conf/webpack.test.config.js'), path.join(configWebDirectory, '/library', '/conf_webpack_test.tmpl')]
+const toCreateWebpackLibraryFiles = new Map([
+	[path.join(baseDirectory, '/.babelrc'), path.join(configWebpackDirectory, '/library', '/babelrc.tmpl')],
+	[path.join(baseDirectory, '/.editorconfig'), path.join(configWebpackDirectory, '/library', '/editorconfig.tmpl')],
+	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configWebpackDirectory, '/library', '/eslintrc.tmpl')],
+	[path.join(baseDirectory, '/.npmignore'), path.join(configWebpackDirectory, '/library', '/npmignore.tmpl')],
+	[path.join(baseDirectory, '/package.json'), path.join(configWebpackDirectory, '/library', '/package.tmpl')],
+	[path.join(baseDirectory, '/readme.md'), path.join(configWebpackDirectory, '/library', '/readme.tmpl')],
+	[path.join(baseDirectory, '/src/index.js'), path.join(configWebpackDirectory, '/library', '/src_index_js.tmpl')],
+	[path.join(baseDirectory, '/test/karma.conf.js'), path.join(configWebpackDirectory, '/library', '/test_karma.tmpl')],
+	[path.join(baseDirectory, '/test/.eslintrc.js'), path.join(configWebpackDirectory, '/library', '/test_eslintrc.tmpl')],
+	[path.join(baseDirectory, '/test/unit/index.test.js'), path.join(configWebpackDirectory, '/library', '/test_unit_index.tmpl')],
+	[path.join(baseDirectory, '/build/dev.js'), path.join(configWebpackDirectory, '/library', '/build_dev.tmpl')],
+	[path.join(baseDirectory, '/build/prod.js'), path.join(configWebpackDirectory, '/library', '/build_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/index.html'), path.join(configWebpackDirectory, '/library', '/conf_html.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.base.config.js'), path.join(configWebpackDirectory, '/library', '/conf_webpack_base.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.dev.config.js'), path.join(configWebpackDirectory, '/library', '/conf_webpack_dev.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.prod.config.js'), path.join(configWebpackDirectory, '/library', '/conf_webpack_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.test.config.js'), path.join(configWebpackDirectory, '/library', '/conf_webpack_test.tmpl')]
 ]);
 
 function* doesFileExist(filename) {
@@ -169,12 +169,12 @@ function run(userConfig, callback) {
 		case 'library':
 			toCreateFiles = toCreateLibraryFiles;
 			break;
-		case 'web':
+		case 'webpack':
 			if (userConfigContent.subKind.toLowerCase() === 'library') {
-				toCreateFiles = toCreateWebLibraryFiles;
+				toCreateFiles = toCreateWebpackLibraryFiles;
 			}
 			else {
-				toCreateFiles = toCreateWebSiteFiles;
+				toCreateFiles = toCreateWebpackSiteFiles;
 			}
 			break;
 	}
