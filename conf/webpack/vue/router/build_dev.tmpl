@@ -16,6 +16,9 @@ rm(path.resolve(__dirname, '../dist'), function (err) {
 	var url = 'http://localhost:' + port;
 
 	var app = express();
+  // handle fallback for HTML5 history API
+  app.use(require('connect-history-api-fallback')());
+
 	var compiler = webpack(webpackConfig);
 
 	var middleware = webpackMiddleware(compiler, {
