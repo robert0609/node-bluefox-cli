@@ -102,6 +102,33 @@ const toCreateWebpackVueFiles = new Map([
 	[path.join(baseDirectory, '/conf/webpack.test.config.js'), path.join(configWebpackDirectory, '/vue/raw', '/conf_webpack_test.tmpl')]
 ]);
 
+const toCreateWebpackVueWithRouterFiles = new Map([
+	[path.join(baseDirectory, '/.babelrc'), path.join(configWebpackDirectory, '/vue/router', '/babelrc.tmpl')],
+	[path.join(baseDirectory, '/.editorconfig'), path.join(configWebpackDirectory, '/vue/router', '/editorconfig.tmpl')],
+	[path.join(baseDirectory, '/.eslintrc.js'), path.join(configWebpackDirectory, '/vue/router', '/eslintrc.tmpl')],
+	[path.join(baseDirectory, '/postcss.config.js'), path.join(configWebpackDirectory, '/vue/router', '/postcss_config.tmpl')],
+	[path.join(baseDirectory, '/.npmignore'), path.join(configWebpackDirectory, '/vue/router', '/npmignore.tmpl')],
+	[path.join(baseDirectory, '/package.json'), path.join(configWebpackDirectory, '/vue/router', '/package.tmpl')],
+	[path.join(baseDirectory, '/readme.md'), path.join(configWebpackDirectory, '/vue/router', '/readme.tmpl')],
+	[path.join(baseDirectory, '/src/index.js'), path.join(configWebpackDirectory, '/vue/router', '/src_index_js.tmpl')],
+	[path.join(baseDirectory, '/src/app.vue'), path.join(configWebpackDirectory, '/vue/router', '/src_app_vue.tmpl')],
+	[path.join(baseDirectory, '/src/pages/error/error.vue'), path.join(configWebpackDirectory, '/vue/router', '/src_pages_error_vue.tmpl')],
+	[path.join(baseDirectory, '/src/pages/home/home.vue'), path.join(configWebpackDirectory, '/vue/router', '/src_pages_home_vue.tmpl')],
+	[path.join(baseDirectory, '/src/pages/notfound/notfound.vue'), path.join(configWebpackDirectory, '/vue/router', '/src_pages_notfound_vue.tmpl')],
+	[path.join(baseDirectory, '/src/router/index.js'), path.join(configWebpackDirectory, '/vue/router', '/src_router_index_js.tmpl')],
+	[path.join(baseDirectory, '/src/static/home/logo.jpg'), path.join(configWebpackDirectory, '/vue/router', '/src_static_home_logo.jpg')],
+	[path.join(baseDirectory, '/test/karma.conf.js'), path.join(configWebpackDirectory, '/vue/router', '/test_karma.tmpl')],
+	[path.join(baseDirectory, '/test/.eslintrc.js'), path.join(configWebpackDirectory, '/vue/router', '/test_eslintrc.tmpl')],
+	[path.join(baseDirectory, '/test/unit/home.test.js'), path.join(configWebpackDirectory, '/vue/router', '/test_unit_home.tmpl')],
+	[path.join(baseDirectory, '/build/dev.js'), path.join(configWebpackDirectory, '/vue/router', '/build_dev.tmpl')],
+	[path.join(baseDirectory, '/build/prod.js'), path.join(configWebpackDirectory, '/vue/router', '/build_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/index.html'), path.join(configWebpackDirectory, '/vue/router', '/conf_html.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.base.config.js'), path.join(configWebpackDirectory, '/vue/router', '/conf_webpack_base.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.dev.config.js'), path.join(configWebpackDirectory, '/vue/router', '/conf_webpack_dev.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.prod.config.js'), path.join(configWebpackDirectory, '/vue/router', '/conf_webpack_prod.tmpl')],
+	[path.join(baseDirectory, '/conf/webpack.test.config.js'), path.join(configWebpackDirectory, '/vue/router', '/conf_webpack_test.tmpl')]
+]);
+
 function* doesFileExist(filename) {
 	let isExists = yield new Promise((resolve, reject) => {
 		fs.access(filename, (error) => {
@@ -203,7 +230,6 @@ function run(userConfig, callback) {
 				else {
 					toCreateFiles = toCreateWebpackVueFiles;
 				}
-				toCreateFiles = toCreateWebpackLibraryFiles;
 			}
 			else {
 				toCreateFiles = toCreateWebpackSiteFiles;
