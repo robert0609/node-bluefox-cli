@@ -39,9 +39,10 @@ function* conversation() {
 	while (!validateKind(kind));
 	let subKind = '';
 	let webLibrary = '';
+	let withVueRouter = '';
 	if (kind.toLowerCase() === 'webpack') {
 		do {
-			subKind = yield createQuestionPromise('sub type("site"or"library", default: site)?');
+			subKind = yield createQuestionPromise('sub type("site"、"library"or"vue", default: site)?');
 			if (subKind.isEmpty()) {
 				subKind = 'site';
 			}
@@ -49,23 +50,38 @@ function* conversation() {
 		while (!validateSubKind(subKind));
 		if (subKind.toLowerCase() === 'library') {
 			do {
-				webLibrary = yield createQuestionPromise('webpack library name?(A-Za-z0-9_)');
+				webLibrary = yield createQuestionPromise('webpack library name(A-Za-z0-9_)?');
 			}
 			while (!validateWebLibrary(webLibrary));
+		}
+		else if (subKind.toLowerCase() === 'vue') {
+			do {
+				withVueRouter = yield createQuestionPromise('with vue-router("y"or"n", default: n)?');
+				if (withVueRouter.isEmpty()) {
+					withVueRouter = 'n';
+				}
+				else if (withVueRouter.toLowerCase() === 'yes') {
+					withVueRouter = 'y';
+				}
+				else if (withVueRouter.toLowerCase() === 'no') {
+					withVueRouter = 'n';
+				}
+			}
+			while (!validateVueKind(withVueRouter));
 		}
 	}
 	let name = yield createQuestionPromise('package name?');
 	let version = '';
 	do {
-		version = yield createQuestionPromise('package version(default: 0.0.1)?');
+		version = yield createQuestionPromise('package version(default: 0.1.1)?');
 		if (version.isEmpty()) {
-			version = '0.0.1';
+			version = '0.1.1';
 		}
 	}
 	while (!validateVersion(version));
 	let description = yield createQuestionPromise('package description?');
 	let auther = yield createQuestionPromise('develop auther?');
-	return { kind, subKind, webLibrary, name, version, description, auther };
+	return { kind, subKind, webLibrary, withVueRouter, name, version, description, auther };
 }
 
 function validateKind(kind) {
@@ -79,9 +95,18 @@ function validateKind(kind) {
 
 function validateSubKind(subKind) {
 	subKind = subKind.toLowerCase();
-	let result = ['site', 'library'].indexOf(subKind) > -1;
+	let result = ['site', 'library', 'vue'].indexOf(subKind) > -1;
 	if (!result) {
 		rl.write('project sub type is error!\n');
+	}
+	return result;
+}
+
+function validateVueKind(withVueRouter) {
+	withVueRouter = withVueRouter.toLowerCase();
+	let result = ['y', 'n', 'yes', 'no'].indexOf(withVueRouter) > -1;
+	if (!result) {
+		rl.write('error!\n');
 	}
 	return result;
 }

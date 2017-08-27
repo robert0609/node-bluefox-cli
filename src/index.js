@@ -6,17 +6,18 @@ import co from 'co';
 import cmd from './userConfig';
 import dirHelper from './directoryHelper';
 import fileHelper from './fileHelper';
-import {convertPromise} from './promiseWrapper';
+import { convertPromise } from './promiseWrapper';
 
 /**
  * 入口函数
  */
 function main(...args) {
-    co(run).then((result) => {
-        process.exit(0);
-    }).catch((error) => {
-        process.exit(-1);
-    });
+	co(run).then((result) => {
+		process.exit(0);
+	}).catch((error) => {
+		console.log(error);
+		process.exit(-1);
+	});
 }
 
 /**
@@ -25,10 +26,10 @@ function main(...args) {
 main(...process.argv.slice(2));
 
 function* run() {
-    let cmdPromise = convertPromise(cmd.run);
-    let userConfig = yield cmdPromise();
-    let dirPromise = convertPromise(dirHelper.run);
-    yield dirPromise(userConfig);
-    let filePromise = convertPromise(fileHelper.run);
-    yield filePromise(userConfig);
+	let cmdPromise = convertPromise(cmd.run);
+	let userConfig = yield cmdPromise();
+	let dirPromise = convertPromise(dirHelper.run);
+	yield dirPromise(userConfig);
+	let filePromise = convertPromise(fileHelper.run);
+	yield filePromise(userConfig);
 }

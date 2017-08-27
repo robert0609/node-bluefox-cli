@@ -1,0 +1,15 @@
+/**
+* 主模块文件
+*/
+import 'babel-polyfill';
+import Vue from 'vue';
+import home from './pages/home/home.vue';
+
+Vue.config.productionTip = false;
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  template: '<home/>',
+  components: { home }
+});

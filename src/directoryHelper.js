@@ -51,6 +51,33 @@ let toCreateWebpackLibraryDirs = [
 	path.join(baseDirectory, '/test/unit')
 ];
 
+let toCreateWebpackVueDirs = [
+	path.join(baseDirectory, '/build'),
+	path.join(baseDirectory, '/conf'),
+	path.join(baseDirectory, '/src'),
+	path.join(baseDirectory, '/test'),
+	path.join(baseDirectory, '/src/common'),
+	path.join(baseDirectory, '/src/pages'),
+	path.join(baseDirectory, '/src/pages/home'),
+	path.join(baseDirectory, '/src/static'),
+	path.join(baseDirectory, '/src/static/home'),
+	path.join(baseDirectory, '/test/unit')
+];
+
+let toCreateWebpackVueWithRouterDirs = [
+	path.join(baseDirectory, '/build'),
+	path.join(baseDirectory, '/conf'),
+	path.join(baseDirectory, '/src'),
+	path.join(baseDirectory, '/test'),
+	path.join(baseDirectory, '/src/common'),
+	path.join(baseDirectory, '/src/pages'),
+	path.join(baseDirectory, '/src/pages/home'),
+	path.join(baseDirectory, '/src/static'),
+	path.join(baseDirectory, '/src/static/home'),
+	path.join(baseDirectory, '/src/router'),
+	path.join(baseDirectory, '/test/unit')
+];
+
 function* createFolder(targetDir) {
 	let isExists = yield new Promise((resolve, reject) => {
 		fs.access(targetDir, (error) => {
@@ -105,6 +132,14 @@ function run(userConfig, callback) {
 		case 'webpack':
 			if (userConfig.subKind.toLowerCase() === 'library') {
 				toCreateDirs = toCreateWebpackLibraryDirs;
+			}
+			else if (userConfig.subKind.toLowerCase() === 'vue') {
+				if (userConfig.withVueRouter.toLowerCase() === 'y') {
+					toCreateDirs = toCreateWebpackVueWithRouterDirs;
+				}
+				else {
+					toCreateDirs = toCreateWebpackVueDirs;
+				}
 			}
 			else {
 				toCreateDirs = toCreateWebpackSiteDirs;
