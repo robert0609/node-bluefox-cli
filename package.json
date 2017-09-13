@@ -1,6 +1,6 @@
 {
 	"name": "node-bluefox-cli",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "node.js project generator",
 	"main": "./dist/index.js",
 	"bin": {
@@ -8,7 +8,7 @@
 	},
 	"scripts": {
 		"clean": "gulp clean",
-		"build": "gulp",
+		"prod": "gulp",
 		"dev": "gulp debug",
 		"lint": "gulp eslint"
 	},
