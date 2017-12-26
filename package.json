@@ -1,6 +1,6 @@
 {
 	"name": "node-bluefox-cli",
-	"version": "0.2.7",
+	"version": "0.2.8",
 	"description": "node.js project generator",
 	"main": "./dist/index.js",
 	"bin": {
