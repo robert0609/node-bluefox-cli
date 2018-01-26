@@ -27,6 +27,14 @@ gulp.task('development_build', ['clean'], function () {
     .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('tools_build', ['clean'], function () {
+	return gulp.src('./src/tools/*.js')
+	.pipe(sourcemaps.init())
+	.pipe(babel())
+	.pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../src/tools'}))
+	.pipe(gulp.dest('./dist'));
+});
+
 gulp.task('production_build', ['clean'], function () {
     return gulp.src('./src/*.js')
     .pipe(babel())
@@ -35,6 +43,10 @@ gulp.task('production_build', ['clean'], function () {
 
 gulp.task('debug', ['development_build'], function () {
     require('./dist/index');
+});
+
+gulp.task('depend', ['tools_build'], function () {
+	require('./dist/dependency.js');
 });
 
 gulp.task('default', ['production_build']);

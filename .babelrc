@@ -3,12 +3,13 @@
 		[
 			"env",
 			{
-				"target": {
+				"targets": {
 					"node": "current"
 				},
 				"useBuiltIns": true
 			}
-		]
+		],
+		"stage-2"
 	],
 	"plugins": []
 }

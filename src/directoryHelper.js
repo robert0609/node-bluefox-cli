@@ -7,6 +7,7 @@ import path from 'path';
 import './utility';
 
 let baseDirectory = process.cwd();
+baseDirectory = '/home/yangxu/gitspace/version-learnning';
 
 let toCreateConsoleDirs = [
 	path.join(baseDirectory, '/bin'),

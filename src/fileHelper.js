@@ -7,10 +7,13 @@ import path from 'path';
 import { convertTemplateString, copyFile } from './utility';
 
 let baseDirectory = process.cwd();
+baseDirectory = '/home/yangxu/gitspace/version-learnning';
 let configConsoleDirectory = path.resolve(__dirname, '../conf/console/');
 let configLibraryDirectory = path.resolve(__dirname, '../conf/library/');
 let configWebpackDirectory = path.resolve(__dirname, '../conf/webpack/');
 let userConfigContent = null;
+
+let dependencyDictionary = require(path.resolve(__dirname, '../conf/dependencies.json'));
 
 const toCreateConsoleFiles = new Map([
 	[path.join(baseDirectory, '/.babelrc'), path.join(configConsoleDirectory, '/babelrc.tmpl')],
@@ -165,6 +168,17 @@ function* createFile(filename, templateFilename) {
 	});
 	if (path.extname(templateFilename) === '.tmpl') {
 		content = convertTemplateString(content, userConfigContent);
+	}
+	if (path.basename(templateFilename) === 'package.tmpl') {
+		//针对package.tmpl文件，设置依赖库的版本号
+		let jsonContent = JSON.parse(content);
+		for (let k in jsonContent.devDependencies) {
+			jsonContent.devDependencies[k] = dependencyDictionary[k];
+		}
+		for (let k in jsonContent.dependencies) {
+			jsonContent.dependencies[k] = dependencyDictionary[k];
+		}
+		content = JSON.stringify(jsonContent, null, 2);
 	}
 	let result = yield new Promise((resolve, reject) => {
 		let ws = fs.createWriteStream(filename);
