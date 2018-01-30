@@ -7,7 +7,6 @@ import path from 'path';
 import { convertTemplateString, copyFile } from './utility';
 
 let baseDirectory = process.cwd();
-baseDirectory = '/home/yangxu/gitspace/version-learnning';
 let configConsoleDirectory = path.resolve(__dirname, '../conf/console/');
 let configLibraryDirectory = path.resolve(__dirname, '../conf/library/');
 let configWebpackDirectory = path.resolve(__dirname, '../conf/webpack/');
