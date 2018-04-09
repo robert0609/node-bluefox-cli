@@ -46,7 +46,8 @@ gulp.task('debug', ['development_build'], function () {
 });
 
 gulp.task('depend', ['tools_build'], function () {
-	require('./dist/dependency.js');
+	// require('./dist/dependency.js');
+	require('./dist/updateFrontend.js');
 });
 
 gulp.task('default', ['production_build']);
