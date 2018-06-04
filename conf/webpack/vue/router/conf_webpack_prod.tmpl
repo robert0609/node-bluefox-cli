@@ -22,7 +22,8 @@ module.exports = merge(baseConfig, {
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
 			minChunks: function (module) {
-				return module.context && (module.context.indexOf(path.resolve(__dirname, '../src/common')) !== -1 || module.context.indexOf(path.resolve(__dirname, '../node_modules')) !== -1);
+				return module.resource &&
+        /\.js$/.test(module.resource) && module.context && (module.context.indexOf(path.resolve(__dirname, '../src/common')) !== -1 || module.context.indexOf(path.resolve(__dirname, '../node_modules')) !== -1);
 			}
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
