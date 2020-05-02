@@ -1,4 +1,4 @@
-# node-bluefox-cli
+# node-bluefox-cli(废弃)
 
 > A Node.js project Generator
 
